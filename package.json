@@ -39,7 +39,7 @@
   },
   "scripts": {
     "build-md": "remark . --quiet --frail",
-    "build-bundle": "browserify index.js --bare -s retext-sentence-spacing > retext-sentence-spacing.js",
+    "build-bundle": "browserify index.js --bare -s retextSentenceSpacing > retext-sentence-spacing.js",
     "build-mangle": "esmangle retext-sentence-spacing.js > retext-sentence-spacing.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
