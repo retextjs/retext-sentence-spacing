@@ -1,12 +1,3 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module retext-sentence-spacing
- * @fileoverview Check spacing (one or two spaces)
- *   between sentences.
- */
-
 'use strict';
 
 var toString = require('nlcst-to-string');
@@ -14,7 +5,6 @@ var visit = require('unist-util-visit');
 var is = require('unist-util-is');
 var plural = require('plur');
 
-/* Expose. */
 module.exports = sentenceSpacing;
 
 function sentenceSpacing(processor, options) {
@@ -23,7 +13,9 @@ function sentenceSpacing(processor, options) {
   return transformer;
 
   function transformer(tree, file) {
-    visit(tree, 'ParagraphNode', function (node) {
+    visit(tree, 'ParagraphNode', visitor);
+
+    function visitor(node) {
       var children = node.children;
       var length = children.length;
       var index = 0;
@@ -61,6 +53,6 @@ function sentenceSpacing(processor, options) {
           }
         }
       }
-    });
+    }
   }
 }

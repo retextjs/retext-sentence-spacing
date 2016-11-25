@@ -1,14 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module retext-sentence-spacing
- * @fileoverview Test suite for `retext-sentence-spacing`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var test = require('tape');
 var retext = require('retext');
 var spacing = require('./');
@@ -23,7 +14,6 @@ var many = 'One sentence.   Three sentences.';
 
 var nonSpace = 'One sentence.\tFour sentences.';
 
-/* Tests. */
 test('retext-sentence-spacing(value[, size])', function (t) {
   [null, 1].forEach(function (pref) {
     t.equal(
