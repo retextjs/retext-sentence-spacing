@@ -7,7 +7,7 @@ var plural = require('plur');
 
 module.exports = sentenceSpacing;
 
-function sentenceSpacing(processor, options) {
+function sentenceSpacing(options) {
   var preferred = (options || {}).preferred || 1;
 
   return transformer;
