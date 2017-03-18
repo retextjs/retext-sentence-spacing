@@ -49,7 +49,8 @@ function sentenceSpacing(options) {
               child
             );
 
-            message.ruleId = message.source = 'retext-sentence-spacing';
+            message.source = 'retext-sentence-spacing';
+            message.ruleId = 'retext-sentence-spacing';
           }
         }
       }
