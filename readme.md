@@ -64,6 +64,15 @@ to the preferred style.
 
 *   `preferred` (`1` or `2`, default: `1`) — Number of expected spaces.
 
+## Related
+
+*   [`retext-contractions`](https://github.com/wooorm/retext-contractions)
+    — Check apostrophe use in contractions
+*   [`retext-diacritics`](https://github.com/wooorm/retext-diacritics)
+    — Check for proper use of diacritics
+*   [`retext-quotes`](https://github.com/wooorm/retext-quotes)
+    — Check quote and apostrophe usage
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
