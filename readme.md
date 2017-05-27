@@ -13,26 +13,34 @@ npm install retext-sentence-spacing
 
 ## Usage
 
-Dependencies.
+Say we have the following file, `example.txt`:
+
+```text
+One sentence. Two sentences.
+
+One sentence.  Two sentences.
+```
+
+And our script, `example.js`, looks as follows:
 
 ```javascript
+var vfile = require('to-vfile');
+var report = require('vfile-reporter');
 var retext = require('retext');
 var spacing = require('retext-sentence-spacing');
-var report = require('vfile-reporter');
 
-retext().use(spacing).process([
-  'One sentence. Two sentences.',
-  '',
-  'One sentence.  Two sentences.'
-].join('\n'), function (err, file) {
-  console.log(report(err || file));
-});
+retext()
+  .use(spacing)
+  .process(vfile.readSync('example.txt'), function (err, file) {
+    console.error(report(err || file));
+  });
 ```
 
 Yields:
 
 ```text
-  3:14-3:16  warning  Expected `1` space between sentences, not `2`
+example.txt
+  3:14-3:16  warning  Expected `1` space between sentences, not `2`  retext-sentence-spacing  retext-sentence-spacing
 
 ⚠ 1 warning
 ```
@@ -40,15 +48,17 @@ Yields:
 This plugin can be configured to prefer 2 spaces instead:
 
 ```diff
--retext().use(spacing).process([
-+retext().use(spacing, {preferred: 2}).process([
-   'One sentence. Two sentences.',
+ retext()
+-  .use(spacing)
++  .use(spacing, {preferred: 2})
+   .process(vfile.readSync('example.txt'), function (err, file) {
 ```
 
 Yields:
 
 ```text
-  1:14-1:15  warning  Expected `2` spaces between sentences, not `1`
+example.txt
+  1:14-1:15  warning  Expected `2` spaces between sentences, not `1`  retext-sentence-spacing  retext-sentence-spacing
 
 ⚠ 1 warning
 ```
@@ -60,9 +70,9 @@ Yields:
 Emit warnings when the spacing between two sentences does not adhere
 to the preferred style.
 
-###### `options`
+###### `options.preferred`
 
-*   `preferred` (`1` or `2`, default: `1`) — Number of expected spaces.
+`1` or `2`, default: `1` — Number of expected spaces.
 
 ## Related
 
