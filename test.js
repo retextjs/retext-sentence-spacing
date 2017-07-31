@@ -40,6 +40,12 @@ test('retext-sentence-spacing(value[, size])', function (t) {
     '',
     'should not emit messages for non-space white-space'
   );
-
+  
+  t.equal(
+    String(retext().use(spacing, {preferred: 'newline'}).processSync(many).messages),
+    '1:14-1:17: Expected newline between sentences, not `3` spaces',
+    'should catch spaces when newline == true'
+  );
+  
   t.end();
 });
