@@ -41,7 +41,14 @@ function sentenceSpacing(options) {
 
           size = value.length;
 
-          if (size !== preferred) {
+          if (preferred == 'newline') {
+            message = file.warn(
+              'Expected newline between sentences, not `' +
+              size + '` ' + plural('space', size),
+              child
+            );
+          }
+          else if (size !== preferred) {
             message = file.warn(
               'Expected `' + preferred + '` ' +
               plural('space', preferred) + ' between ' +
