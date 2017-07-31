@@ -1,7 +1,6 @@
 # retext-sentence-spacing [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-Check spacing (one or two spaces) between sentences with
-[**retext**][retext].
+Check for a preferred spacing (one or two spaces) or newline between sentences with [**retext**][retext].
 
 ## Installation
 
@@ -63,6 +62,25 @@ example.txt
 ⚠ 1 warning
 ```
 
+Furthermore the plugin can be configured to prefer a newline in between sentences:
+
+```diff
+ retext()
+-  .use(spacing)
++  .use(spacing, {preferred: 'newline'})
+   .process(vfile.readSync('example.txt'), function (err, file) {
+```
+
+Yields:
+
+```text
+example.txt
+  1:14-1:15  warning  Expected newline between sentences, not `1` space  retext-sentence-spacing  retext-sentence-spacing
+  3:14-3:16  warning  Expected newline between sentences, not `2` spaces retext-sentence-spacing  retext-sentence-spacing
+
+⚠ 2 warnings
+```
+
 ## API
 
 ### `retext().use(sentenceSpacing[, options])`
@@ -72,7 +90,7 @@ to the preferred style.
 
 ###### `options.preferred`
 
-`1` or `2`, default: `1` — Number of expected spaces.
+`1`, `2` or `'newline'`, default: `1` — Number of expected spaces or keyword for a newline character
 
 ## Related
 
