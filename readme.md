@@ -83,6 +83,13 @@ to the preferred style.
 *   [`retext-quotes`](https://github.com/retextjs/retext-quotes)
     — Check quote and apostrophe usage
 
+## Contribute
+
+See [`contribute.md` in `retextjs/retext`][contribute] for ways to get started.
+
+This organisation has a [Code of Conduct][coc].  By interacting with this
+repository, organisation, or community you agree to abide by its terms.
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]
@@ -104,3 +111,7 @@ to the preferred style.
 [author]: http://wooorm.com
 
 [retext]: https://github.com/retextjs/retext
+
+[contribute]: https://github.com/retextjs/retext/blob/master/contributing.md
+
+[coc]: https://github.com/retextjs/retext/blob/master/code-of-conduct.md
