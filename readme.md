@@ -76,11 +76,11 @@ to the preferred style.
 
 ## Related
 
-*   [`retext-contractions`](https://github.com/wooorm/retext-contractions)
+*   [`retext-contractions`](https://github.com/retextjs/retext-contractions)
     — Check apostrophe use in contractions
-*   [`retext-diacritics`](https://github.com/wooorm/retext-diacritics)
+*   [`retext-diacritics`](https://github.com/retextjs/retext-diacritics)
     — Check for proper use of diacritics
-*   [`retext-quotes`](https://github.com/wooorm/retext-quotes)
+*   [`retext-quotes`](https://github.com/retextjs/retext-quotes)
     — Check quote and apostrophe usage
 
 ## License
@@ -89,13 +89,13 @@ to the preferred style.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/retext-sentence-spacing.svg
+[travis-badge]: https://img.shields.io/travis/retextjs/retext-sentence-spacing.svg
 
-[travis]: https://travis-ci.org/wooorm/retext-sentence-spacing
+[travis]: https://travis-ci.org/retextjs/retext-sentence-spacing
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/retext-sentence-spacing.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/retextjs/retext-sentence-spacing.svg
 
-[codecov]: https://codecov.io/github/wooorm/retext-sentence-spacing
+[codecov]: https://codecov.io/github/retextjs/retext-sentence-spacing
 
 [npm-install]: https://docs.npmjs.com/cli/install
 
@@ -103,4 +103,4 @@ to the preferred style.
 
 [author]: http://wooorm.com
 
-[retext]: https://github.com/wooorm/retext-sentence-spacing
+[retext]: https://github.com/retextjs/retext

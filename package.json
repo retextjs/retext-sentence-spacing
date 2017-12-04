@@ -9,8 +9,8 @@
     "spaces",
     "retext"
   ],
-  "repository": "wooorm/retext-sentence-spacing",
-  "bugs": "https://github.com/wooorm/retext-sentence-spacing/issues",
+  "repository": "retextjs/retext-sentence-spacing",
+  "bugs": "https://github.com/retextjs/retext-sentence-spacing/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
