@@ -1,7 +1,7 @@
 language: node_js
 node_js:
 - '4.0'
-- '8.0'
+- '9.0'
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   - provider: npm
@@ -10,7 +10,7 @@ deploy:
       secure: WST9XpPgp4Ly5oqzDbX8fs0IR6cnuyqVi3XCiq+I2VAjLJ754aZ4J2npuhSA+ZrUc+mN5tScMQhopFmCx2jay5e7sTWvYe/Liigpoxz+qdu7E9OFJlQbLEHy7cOBBdy0Pk4D3jhtH9NP5MmEU8Bd0sIm97maTgg7MumcvNNbVltkYcrsa7A3ot/hYnIGVJM/Eui6TIoECczykleTXZIOx7YXL1pw3X9pdk5LJsMGG2bpnnmIVNRqJLo9j49wQMTMWBXPz4Cy5s08mAqG3d2E9uBW0pgUjMGHRYN5C6MRohO/ZfbM3OTr47VcmonPVfMbfzeSTWi7vYelvx0h5TLV461LWu3ySEzxG4IYbKqgTcZxZUMNFJSCrwFMVqVwaAuoH/M735hUidlbUatvJO1A7j9SsG2E7XaApK7Coxd4js8Qggy1tGheH12I0ILA8iAE+YbxkrIOExLP4i8XiYmq6KlEZTzVA3Pw761Fqvo/Edqpcu4bZQwKmNcKbSvaggEkAanTdvt+CwbJe9RwLFl1YCjWXwFE3M9y0TAV2bygvYfKIyHxYOoxMVFALwKjuko39xUOVOmT9TLHO/3wIodZlP0a+rgIm/Za1w7ipYtd1oAMMKfVX6tg8B5JxD/QK2x+D5K9gy53Qkla3BTmkGcV5hrrhxpEaLeHV1Wriz6Utcc=
     on:
       tags: true
-      node: '8.0'
+      node: '9.0'
   - provider: releases
     api_key:
       secure: AyhQj7fiqzTYkcHgDSs3ZLyg60bn0FTInZR1Mw8ZRoKLWhQkyOuchQQyVds8RQBr+/AXvFtDe6X2KULiVhnYsqvVNypCC50pgX1KnfjPLg6hLMrNZruji8YKAERjeI2lZpP0rFZv6hCxRAZyg8pOt06NjI4gn4nP0UnGc97k++itRDFhR/l++bRPpWnk+zXRXyKa/dTOVheBeooxwgdqbbLg94G37Be7AvZLvABY6p0HKhb8UeS4NCNTtcr3R6Id5VVfCv8aFyYLAwLTHEMHA8OrxKAPmolMgmjvaPpIDjKn1NoEoJE3Q+dQPxKxeu4uOdTnmCeiIDyJ3/0sMIVyAW4Kw7UOglZEjXpSqyRXbZrvDCYzOoIt0WbXVGaErvQfDGoDnSL840u2g08yq5no4Yx6VdpkJ0qpXVq5dgG408z9MiIQvVkByGBBmvawaP/o82mf7wHoR83yEfOojUn7o0tEY8ew6kz3L8p7czJo7vIBm18d+TXDHWmUcypKUITbazbuohA+DI+P7WYdfmeCPT048l93IJbMZ5+X/pnaJCoDqMjk+6D1xu59DtFuJ86cDDW5bW0xG5+m9BVAVPDTM+UjnVru3DFNE71Z2k3bZDuC+9emsAwXufhW6r27Sv3TfRo4nKnP/w6XQ2H9CVLzGniR3EGKlGFadOPGGfbpXXo=
@@ -19,4 +19,4 @@ deploy:
       - "retext-sentence-spacing.min.js"
     on:
       tags: true
-      node: '8.0'
+      node: '9.0'
