@@ -5,3 +5,4 @@ coverage/
 node_modules/
 retext-sentence-spacing.js
 retext-sentence-spacing.min.js
+yarn.lock
