@@ -2,7 +2,7 @@
 
 var test = require('tape');
 var retext = require('retext');
-var spacing = require('./');
+var spacing = require('.');
 
 var mixed = [
   'One sentence. Two sentences.',
