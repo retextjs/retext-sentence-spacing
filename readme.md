@@ -1,4 +1,4 @@
-# retext-sentence-spacing [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# retext-sentence-spacing[![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
 
 Check spacing (one or two spaces) between sentences with
 [**retext**][retext].
@@ -97,13 +97,21 @@ repository, organisation, or community you agree to abide by its terms.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/retextjs/retext-sentence-spacing.svg
+[build-badge]: https://img.shields.io/travis/retextjs/retext-sentence-spacing.svg
 
-[travis]: https://travis-ci.org/retextjs/retext-sentence-spacing
+[build]: https://travis-ci.org/retextjs/retext-sentence-spacing
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/retextjs/retext-sentence-spacing.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/retextjs/retext-sentence-spacing.svg
 
-[codecov]: https://codecov.io/github/retextjs/retext-sentence-spacing
+[coverage]: https://codecov.io/github/retextjs/retext-sentence-spacing
+
+[downloads-badge]: https://img.shields.io/npm/dm/retext-sentence-spacing.svg
+
+[downloads]: https://www.npmjs.com/package/retext-sentence-spacing
+
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/retext
 
 [npm-install]: https://docs.npmjs.com/cli/install
 
