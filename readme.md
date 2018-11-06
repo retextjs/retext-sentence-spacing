@@ -24,16 +24,16 @@ One sentence.  Two sentences.
 And our script, `example.js`, looks as follows:
 
 ```javascript
-var vfile = require('to-vfile');
-var report = require('vfile-reporter');
-var retext = require('retext');
-var spacing = require('retext-sentence-spacing');
+var vfile = require('to-vfile')
+var report = require('vfile-reporter')
+var retext = require('retext')
+var spacing = require('retext-sentence-spacing')
 
 retext()
   .use(spacing)
-  .process(vfile.readSync('example.txt'), function (err, file) {
-    console.error(report(err || file));
-  });
+  .process(vfile.readSync('example.txt'), function(err, file) {
+    console.error(report(err || file))
+  })
 ```
 
 Yields:
@@ -51,7 +51,7 @@ This plugin can be configured to prefer 2 spaces instead:
  retext()
 -  .use(spacing)
 +  .use(spacing, {preferred: 2})
-   .process(vfile.readSync('example.txt'), function (err, file) {
+   .process(vfile.readSync('example.txt'), function(err, file) {
 ```
 
 Yields:

@@ -1,56 +1,61 @@
-'use strict';
+'use strict'
 
-var toString = require('nlcst-to-string');
-var visit = require('unist-util-visit');
-var is = require('unist-util-is');
-var plural = require('plur');
+var toString = require('nlcst-to-string')
+var visit = require('unist-util-visit')
+var is = require('unist-util-is')
+var plural = require('plur')
 
-module.exports = sentenceSpacing;
+module.exports = sentenceSpacing
 
 function sentenceSpacing(options) {
-  var preferred = (options || {}).preferred || 1;
+  var preferred = (options || {}).preferred || 1
 
-  return transformer;
+  return transformer
 
   function transformer(tree, file) {
-    visit(tree, 'ParagraphNode', visitor);
+    visit(tree, 'ParagraphNode', visitor)
 
     function visitor(node) {
-      var children = node.children;
-      var length = children.length;
-      var index = 0;
-      var value;
-      var child;
-      var size;
-      var message;
+      var children = node.children
+      var length = children.length
+      var index = 0
+      var value
+      var child
+      var size
+      var message
 
       while (++index < length) {
-        child = children[index];
+        child = children[index]
 
         if (
           is('SentenceNode', children[index - 1]) &&
           is('WhiteSpaceNode', child) &&
           is('SentenceNode', children[index + 1])
         ) {
-          value = toString(child);
+          value = toString(child)
 
           /* Ignore anything with non-spaces. */
           if (!/^ +$/.test(value)) {
-            continue;
+            continue
           }
 
-          size = value.length;
+          size = value.length
 
           if (size !== preferred) {
             message = file.warn(
-              'Expected `' + preferred + '` ' +
-              plural('space', preferred) + ' between ' +
-              'sentences, not `' + size + '`',
+              'Expected `' +
+                preferred +
+                '` ' +
+                plural('space', preferred) +
+                ' between ' +
+                'sentences, not `' +
+                size +
+                '`',
               child
-            );
+            )
 
-            message.source = 'retext-sentence-spacing';
-            message.ruleId = 'retext-sentence-spacing';
+            message.source = 'retext-sentence-spacing'
+            message.ruleId = 'retext-sentence-spacing'
           }
         }
       }
