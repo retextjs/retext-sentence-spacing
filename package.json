@@ -1,6 +1,6 @@
 {
   "name": "retext-sentence-spacing",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Check spacing (one or two spaces) between sentences",
   "license": "MIT",
   "keywords": [
