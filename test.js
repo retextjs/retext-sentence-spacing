@@ -13,7 +13,9 @@ var mixed = [
 ].join('\n')
 
 test('sentenceSpacing(value[, size])', function(t) {
+  var zero = [0, 'newline']
   var one = [null, 'space', 1]
+  var two = [2]
 
   one.forEach(function(pref) {
     t.deepEqual(
@@ -26,26 +28,30 @@ test('sentenceSpacing(value[, size])', function(t) {
     )
   })
 
-  t.deepEqual(
-    retext()
-      .use(spacing, {preferred: 2})
-      .processSync(mixed)
-      .messages.map(String),
-    ['1:14-1:15: Expected `2` spaces between sentences, not `1`'],
-    'should catch single spaces when preferred == 2'
-  )
+  two.forEach(function(pref) {
+    t.deepEqual(
+      retext()
+        .use(spacing, {preferred: pref})
+        .processSync(mixed)
+        .messages.map(String),
+      ['1:14-1:15: Expected `2` spaces between sentences, not `1`'],
+      'should catch single spaces when preferred == ' + pref
+    )
+  })
 
-  t.deepEqual(
-    retext()
-      .use(spacing, {preferred: 'newline'})
-      .processSync(mixed)
-      .messages.map(String),
-    [
-      '1:14-1:15: Expected a newline between sentences, not `1` space',
-      '3:14-3:16: Expected a newline between sentences, not `2` spaces'
-    ],
-    'should catch single spaces when preferred == 2'
-  )
+  zero.forEach(function(pref) {
+    t.deepEqual(
+      retext()
+        .use(spacing, {preferred: pref})
+        .processSync(mixed)
+        .messages.map(String),
+      [
+        '1:14-1:15: Expected a newline between sentences, not `1` space',
+        '3:14-3:16: Expected a newline between sentences, not `2` spaces'
+      ],
+      'should catch single spaces when preferred == ' + pref
+    )
+  })
 
   t.deepEqual(
     retext()
@@ -68,10 +74,10 @@ test('sentenceSpacing(value[, size])', function(t) {
   t.throws(
     function() {
       retext()
-        .use(spacing, {preferred: 0})
+        .use(spacing, {preferred: -1})
         .freeze()
     },
-    /Error: Expected `options.preferred` to be `1` or `2`/,
+    /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/,
     'should throw for preferred lower than 1'
   )
 
@@ -81,7 +87,7 @@ test('sentenceSpacing(value[, size])', function(t) {
         .use(spacing, {preferred: 3})
         .freeze()
     },
-    /Error: Expected `options.preferred` to be `1` or `2`/,
+    /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/,
     'should throw for preferred higher than 2'
   )
 

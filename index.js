@@ -16,16 +16,20 @@ function sentenceSpacing(options) {
     preferred = 1
   }
 
-  if (preferred !== 'newline') {
-    if (typeof preferred !== 'number') {
-      throw new Error(
-        "Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`"
-      )
-    }
+  if (preferred === 'newline') {
+    preferred = 0
+  }
 
-    if (preferred !== 1 && preferred !== 2) {
-      throw new Error('Expected `options.preferred` to be `1` or `2`')
-    }
+  if (typeof preferred !== 'number') {
+    throw new Error(
+      "Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`"
+    )
+  }
+
+  if (preferred < 0 || preferred > 2) {
+    throw new Error(
+      "Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between (including) `0` and `2`"
+    )
   }
 
   return transformer
@@ -63,7 +67,7 @@ function sentenceSpacing(options) {
         size = value.length
 
         /* Size is never preferred if we want a newline. */
-        if (preferred === 'newline') {
+        if (preferred === 0) {
           file.warn(
             'Expected a newline between sentences, not `' +
               size +
