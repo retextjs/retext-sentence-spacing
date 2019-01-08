@@ -72,7 +72,9 @@ to the preferred style.
 
 ###### `options.preferred`
 
-`1` or `2`, default: `1` — Number of expected spaces.
+*   `0` (or `'newline'`) — Disallow spaces between sentences
+*   `1` (or `'space'`, default) — Allow only one space between sentences
+*   `2` — Allow only two space between sentences
 
 ## Related
 

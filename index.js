@@ -7,8 +7,30 @@ var plural = require('plur')
 
 module.exports = sentenceSpacing
 
+var id = 'retext-sentence-spacing:retext-sentence-spacing'
+
 function sentenceSpacing(options) {
-  var preferred = (options || {}).preferred || 1
+  var preferred = (options || {}).preferred
+
+  if (preferred === null || preferred === undefined || preferred === 'space') {
+    preferred = 1
+  }
+
+  if (preferred === 'newline') {
+    preferred = 0
+  }
+
+  if (typeof preferred !== 'number') {
+    throw new Error(
+      "Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`"
+    )
+  }
+
+  if (preferred < 0 || preferred > 2) {
+    throw new Error(
+      "Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between (including) `0` and `2`"
+    )
+  }
 
   return transformer
 
@@ -22,41 +44,51 @@ function sentenceSpacing(options) {
       var value
       var child
       var size
-      var message
 
       while (++index < length) {
         child = children[index]
 
         if (
-          is('SentenceNode', children[index - 1]) &&
-          is('WhiteSpaceNode', child) &&
-          is('SentenceNode', children[index + 1])
+          !is('SentenceNode', children[index - 1]) ||
+          !is('WhiteSpaceNode', child) ||
+          !is('SentenceNode', children[index + 1])
         ) {
-          value = toString(child)
+          continue
+        }
 
-          /* Ignore anything with non-spaces. */
-          if (!/^ +$/.test(value)) {
-            continue
-          }
+        value = toString(child)
 
-          size = value.length
+        /* We only check for white-space that is *just* spaces: it’s OK to add
+         * newlines if `space` is expected. */
+        if (!/^ +$/.test(value)) {
+          continue
+        }
 
-          if (size !== preferred) {
-            message = file.warn(
-              'Expected `' +
-                preferred +
-                '` ' +
-                plural('space', preferred) +
-                ' between ' +
-                'sentences, not `' +
-                size +
-                '`',
-              child
-            )
+        size = value.length
 
-            message.source = 'retext-sentence-spacing'
-            message.ruleId = 'retext-sentence-spacing'
-          }
+        /* Size is never preferred if we want a newline. */
+        if (preferred === 0) {
+          file.warn(
+            'Expected a newline between sentences, not `' +
+              size +
+              '` ' +
+              plural('space', size),
+            child,
+            id
+          )
+        } else if (size !== preferred) {
+          file.warn(
+            'Expected `' +
+              preferred +
+              '` ' +
+              plural('space', preferred) +
+              ' between ' +
+              'sentences, not `' +
+              size +
+              '`',
+            child,
+            id
+          )
         }
       }
     }
