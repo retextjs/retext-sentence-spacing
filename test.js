@@ -7,7 +7,9 @@ var spacing = require('.')
 var mixed = [
   'One sentence. Two sentences.',
   '',
-  'One sentence.  Two sentences.'
+  'One sentence.  Two sentences.',
+  '',
+  'One sentence.\nTwo sentences.'
 ].join('\n')
 
 test('sentenceSpacing(value[, size])', function(t) {
@@ -30,6 +32,18 @@ test('sentenceSpacing(value[, size])', function(t) {
       .processSync(mixed)
       .messages.map(String),
     ['1:14-1:15: Expected `2` spaces between sentences, not `1`'],
+    'should catch single spaces when preferred == 2'
+  )
+
+  t.deepEqual(
+    retext()
+      .use(spacing, {preferred: 'newline'})
+      .processSync(mixed)
+      .messages.map(String),
+    [
+      '1:14-1:15: Expected a newline between sentences, not `1` space',
+      '3:14-3:16: Expected a newline between sentences, not `2` spaces'
+    ],
     'should catch single spaces when preferred == 2'
   )
 
@@ -77,7 +91,7 @@ test('sentenceSpacing(value[, size])', function(t) {
         .use(spacing, {preferred: 'foo'})
         .freeze()
     },
-    /Error: Expected `options.preferred` to be `'space'` or a `number`/,
+    /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`/,
     'should throw for non-numbers'
   )
 
