@@ -15,7 +15,9 @@ var many = 'One sentence.   Three sentences.'
 var nonSpace = 'One sentence.\tFour sentences.'
 
 test('retext-sentence-spacing(value[, size])', function(t) {
-  ;[null, 1].forEach(function(pref) {
+  var one = [null, 'space', 1]
+
+  one.forEach(function(pref) {
     t.equal(
       String(
         retext()

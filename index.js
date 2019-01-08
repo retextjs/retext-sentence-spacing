@@ -8,7 +8,11 @@ var plural = require('plur')
 module.exports = sentenceSpacing
 
 function sentenceSpacing(options) {
-  var preferred = (options || {}).preferred || 1
+  var preferred = (options || {}).preferred
+
+  if (preferred === null || preferred === undefined || preferred === 'space') {
+    preferred = 1
+  }
 
   return transformer
 
