@@ -14,6 +14,16 @@ function sentenceSpacing(options) {
     preferred = 1
   }
 
+  if (typeof preferred !== 'number') {
+    throw new Error(
+      "Expected `options.preferred` to be `'space'` or a `number`"
+    )
+  }
+
+  if (preferred < 1 || preferred > 2) {
+    throw new Error('Expected `options.preferred` to be `1` or `2`')
+  }
+
   return transformer
 
   function transformer(tree, file) {

@@ -59,5 +59,35 @@ test('retext-sentence-spacing(value[, size])', function(t) {
     'should not emit messages for non-space white-space'
   )
 
+  t.throws(
+    function() {
+      retext()
+        .use(spacing, {preferred: 0})
+        .freeze()
+    },
+    /Error: Expected `options.preferred` to be `1` or `2`/,
+    'should throw for preferred lower than 1'
+  )
+
+  t.throws(
+    function() {
+      retext()
+        .use(spacing, {preferred: 3})
+        .freeze()
+    },
+    /Error: Expected `options.preferred` to be `1` or `2`/,
+    'should throw for preferred higher than 2'
+  )
+
+  t.throws(
+    function() {
+      retext()
+        .use(spacing, {preferred: 'foo'})
+        .freeze()
+    },
+    /Error: Expected `options.preferred` to be `'space'` or a `number`/,
+    'should throw for non-numbers'
+  )
+
   t.end()
 })
