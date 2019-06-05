@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- lts/boron
-- node
+  - lts/dubnium
+  - node
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: releases
@@ -9,7 +9,7 @@ deploy:
   api_key:
     secure: YieOleq31a2Ss9FwfbAcAo8SyfvYmej8xQfOK6+KhwqatrTn3+2HBKnGL5uTxF0sA8xHSNsPfDuQT504WaU7ct2XQQb41IquRK15WxDN1Chqp1PBxrfHEDgEAVx//HsDoxWYlcih6QObWAVyqZ5Tbj/JnsPNQhnyvUtrWNme+19cfgF6YS5eI7AMVC5wRNSpEir+RmS1LbsdXEsCj0uDikXZPl5QCoO6mxbJ3xtCgT0LMmumc3B8aDVz9LrjS5/L803xhYNCeJgBi7JFqXPEFyLtsTpxF9No9kgG+dJDaUGtYEsWuQ7/7NKzTsDFm3HOWOCLXIcPsDZbu21uakEryHiyssCKqtZCxj97OrW5ZGKteA+pYvJyLqgABuFuC1Mz8GMgjYrfyDFMJxqIohXhPvmFzWfOTzkBmcuHvssEmqMgrGQCLT7EM7BU3eqYc6OJLeE76BX9mIz2nOlAeYuhJbCaE11Q9fy1wEJWEfzPFWuhnQuAAxAEMT5EjlcO56CpONmXVaOhOkg5LXplu3w35uBQ6TnekzPnGWEfrKI0xWT3dd1dFg408pMoHvyaHqCivZo+ISuqKubVvB7r+pJQNo19kkACP77/XgXDujWfBe07Dnw8ZC/ngCYaEZCgw7V/GZ2n1KjOCKccXY5RDc/hpO2rjqrWXZGoT4ta12nmq3U=
   file:
-    - "retext-sentence-spacing.js"
-    - "retext-sentence-spacing.min.js"
+    - 'retext-sentence-spacing.js'
+    - 'retext-sentence-spacing.min.js'
   on:
     tags: true
