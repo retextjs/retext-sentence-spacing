@@ -2,10 +2,13 @@
 
 var toString = require('nlcst-to-string')
 var visit = require('unist-util-visit')
-var is = require('unist-util-is')
+var convert = require('unist-util-is/convert')
 var plural = require('plur')
 
 module.exports = sentenceSpacing
+
+var sentence = convert('SentenceNode')
+var whiteSpace = convert('WhiteSpaceNode')
 
 var id = 'retext-sentence-spacing:retext-sentence-spacing'
 
@@ -49,9 +52,9 @@ function sentenceSpacing(options) {
         child = children[index]
 
         if (
-          !is('SentenceNode', children[index - 1]) ||
-          !is('WhiteSpaceNode', child) ||
-          !is('SentenceNode', children[index + 1])
+          !sentence(children[index - 1]) ||
+          !whiteSpace(child) ||
+          !sentence(children[index + 1])
         ) {
           continue
         }
@@ -82,8 +85,7 @@ function sentenceSpacing(options) {
               preferred +
               '` ' +
               plural('space', preferred) +
-              ' between ' +
-              'sentences, not `' +
+              ' between sentences, not `' +
               size +
               '`',
             child,
