@@ -1,13 +1,15 @@
 {
   "name": "retext-sentence-spacing",
   "version": "2.1.0",
-  "description": "Check spacing (one or two spaces) between sentences",
+  "description": "retext plugin to check spacing (one or two spaces) between sentences",
   "license": "MIT",
   "keywords": [
+    "unified",
+    "retext",
+    "plugin",
     "sentence",
     "spacing",
-    "spaces",
-    "retext"
+    "spaces"
   ],
   "repository": "retextjs/retext-sentence-spacing",
   "bugs": "https://github.com/retextjs/retext-sentence-spacing/issues",
