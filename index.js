@@ -62,14 +62,14 @@ function sentenceSpacing(options) {
         value = toString(child)
 
         // We only check for white-space that is *just* spaces: it’s OK to add
-        // newlines if `space` is expected.
+        // line feeds if `space` is expected.
         if (!/^ +$/.test(value)) {
           continue
         }
 
         size = value.length
 
-        // Size is never preferred if we want a newline.
+        // Size is never preferred if we want a line feed.
         if (preferred === 0) {
           file.warn(
             'Expected a newline between sentences, not `' +

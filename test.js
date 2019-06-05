@@ -18,58 +18,64 @@ test('sentenceSpacing(value[, size])', function(t) {
   var two = [2]
 
   one.forEach(function(pref) {
-    t.deepEqual(
-      retext()
-        .use(spacing, {preferred: pref})
-        .processSync(mixed)
-        .messages.map(String),
-      ['3:14-3:16: Expected `1` space between sentences, not `2`'],
-      'should catch double spaces when preferred == ' + pref
-    )
+    retext()
+      .use(spacing, {preferred: pref})
+      .process(mixed, function(err, file) {
+        t.deepEqual(
+          [err].concat(file.messages.map(String)),
+          [null, '3:14-3:16: Expected `1` space between sentences, not `2`'],
+          'should catch double spaces when preferred == ' + pref
+        )
+      })
   })
 
   two.forEach(function(pref) {
-    t.deepEqual(
-      retext()
-        .use(spacing, {preferred: pref})
-        .processSync(mixed)
-        .messages.map(String),
-      ['1:14-1:15: Expected `2` spaces between sentences, not `1`'],
-      'should catch single spaces when preferred == ' + pref
-    )
+    retext()
+      .use(spacing, {preferred: pref})
+      .process(mixed, function(err, file) {
+        t.deepEqual(
+          [err].concat(file.messages.map(String)),
+          [null, '1:14-1:15: Expected `2` spaces between sentences, not `1`'],
+          'should catch single spaces when preferred == ' + pref
+        )
+      })
   })
 
   zero.forEach(function(pref) {
-    t.deepEqual(
-      retext()
-        .use(spacing, {preferred: pref})
-        .processSync(mixed)
-        .messages.map(String),
-      [
-        '1:14-1:15: Expected a newline between sentences, not `1` space',
-        '3:14-3:16: Expected a newline between sentences, not `2` spaces'
-      ],
-      'should catch single spaces when preferred == ' + pref
-    )
+    retext()
+      .use(spacing, {preferred: pref})
+      .process(mixed, function(err, file) {
+        t.deepEqual(
+          [err].concat(file.messages.map(String)),
+          [
+            null,
+            '1:14-1:15: Expected a newline between sentences, not `1` space',
+            '3:14-3:16: Expected a newline between sentences, not `2` spaces'
+          ],
+          'should catch spaces when preferred == ' + pref
+        )
+      })
   })
 
-  t.deepEqual(
-    retext()
-      .use(spacing)
-      .processSync('One sentence.   Three sentences.')
-      .messages.map(String),
-    ['1:14-1:17: Expected `1` space between sentences, not `3`'],
-    'should catch more than two spaces'
-  )
+  retext()
+    .use(spacing)
+    .process('One sentence.   Three sentences.', function(err, file) {
+      t.deepEqual(
+        [err].concat(file.messages.map(String)),
+        [null, '1:14-1:17: Expected `1` space between sentences, not `3`'],
+        'should catch more than two spaces'
+      )
+    })
 
-  t.deepEqual(
-    retext()
-      .use(spacing)
-      .processSync('One sentence.\tFour sentences.')
-      .messages.map(String),
-    [],
-    'should not emit messages for non-space white-space'
-  )
+  retext()
+    .use(spacing)
+    .process('One sentence.\tFour sentences.', function(err, file) {
+      t.deepEqual(
+        [err].concat(file.messages.map(String)),
+        [null],
+        'should not emit messages for non-space white-space'
+      )
+    })
 
   t.throws(
     function() {
