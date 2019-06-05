@@ -1,6 +1,6 @@
 {
   "name": "retext-sentence-spacing",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "retext plugin to check spacing (one or two spaces) between sentences",
   "license": "MIT",
   "keywords": [
