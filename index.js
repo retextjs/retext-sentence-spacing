@@ -71,7 +71,7 @@ function sentenceSpacing(options) {
 
         // Size is never preferred if we want a line feed.
         if (preferred === 0) {
-          file.warn(
+          file.message(
             'Expected a newline between sentences, not `' +
               size +
               '` ' +
@@ -80,7 +80,7 @@ function sentenceSpacing(options) {
             id
           )
         } else if (size !== preferred) {
-          file.warn(
+          file.message(
             'Expected `' +
               preferred +
               '` ' +
