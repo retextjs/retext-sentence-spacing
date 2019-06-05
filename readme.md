@@ -1,29 +1,36 @@
-# retext-sentence-spacing[![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
+# retext-sentence-spacing
 
-Check spacing (one or two spaces) between sentences with
-[**retext**][retext].
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
+[![Chat][chat-badge]][chat]
 
-## Installation
+[**retext**][retext] plugin to check spacing between sentences.
 
-[npm][npm-install]:
+## Install
 
-```bash
+[npm][]:
+
+```sh
 npm install retext-sentence-spacing
 ```
 
-## Usage
+## Use
 
 Say we have the following file, `example.txt`:
 
-```text
+```txt
 One sentence. Two sentences.
 
 One sentence.  Two sentences.
 ```
 
-And our script, `example.js`, looks as follows:
+…and our script, `example.js`, looks as follows:
 
-```javascript
+```js
 var vfile = require('to-vfile')
 var report = require('vfile-reporter')
 var retext = require('retext')
@@ -38,7 +45,7 @@ retext()
 
 Yields:
 
-```text
+```txt
 example.txt
   3:14-3:16  warning  Expected `1` space between sentences, not `2`  retext-sentence-spacing  retext-sentence-spacing
 
@@ -56,7 +63,7 @@ This plugin can be configured to prefer 2 spaces instead:
 
 Yields:
 
-```text
+```txt
 example.txt
   1:14-1:15  warning  Expected `2` spaces between sentences, not `1`  retext-sentence-spacing  retext-sentence-spacing
 
@@ -67,14 +74,14 @@ example.txt
 
 ### `retext().use(sentenceSpacing[, options])`
 
-Emit warnings when the spacing between two sentences does not adhere
-to the preferred style.
+Check spacing between sentences.
+Emit warnings when the spacing does not adhere to the preferred style.
 
 ###### `options.preferred`
 
 *   `0` (or `'newline'`) — Disallow spaces between sentences
 *   `1` (or `'space'`, default) — Allow only one space between sentences
-*   `2` — Allow only two space between sentences
+*   `2` — Allow only two spaces between sentences
 
 ## Related
 
@@ -87,11 +94,13 @@ to the preferred style.
 
 ## Contribute
 
-See [`contributing.md` in `retextjs/retext`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`retextjs/.github`][health] for ways
+to get started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -111,18 +120,32 @@ repository, organisation, or community you agree to abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/retext-sentence-spacing
 
+[size-badge]: https://img.shields.io/bundlephobia/minzip/retext-sentence-spacing.svg
+
+[size]: https://bundlephobia.com/result?p=retext-sentence-spacing
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[collective]: https://opencollective.com/unified
+
 [chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
 
 [chat]: https://spectrum.chat/unified/retext
 
-[npm-install]: https://docs.npmjs.com/cli/install
+[npm]: https://docs.npmjs.com/cli/install
+
+[health]: https://github.com/retextjs/.github
+
+[contributing]: https://github.com/retextjs/.github/blob/master/contributing.md
+
+[support]: https://github.com/retextjs/.github/blob/master/support.md
+
+[coc]: https://github.com/retextjs/.github/blob/master/code-of-conduct.md
 
 [license]: license
 
 [author]: https://wooorm.com
 
 [retext]: https://github.com/retextjs/retext
-
-[contributing]: https://github.com/retextjs/retext/blob/master/contributing.md
-
-[coc]: https://github.com/retextjs/retext/blob/master/code-of-conduct.md
