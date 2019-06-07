@@ -47,7 +47,7 @@ Yields:
 
 ```txt
 example.txt
-  3:14-3:16  warning  Expected `1` space between sentences, not `2`  retext-sentence-spacing  retext-sentence-spacing
+  3:14-3:16  warning  Expected `1` space between sentences, not `2`  space  retext-sentence-spacing
 
 ⚠ 1 warning
 ```
@@ -65,7 +65,7 @@ Yields:
 
 ```txt
 example.txt
-  1:14-1:15  warning  Expected `2` spaces between sentences, not `1`  retext-sentence-spacing  retext-sentence-spacing
+  1:14-1:15  warning  Expected `2` spaces between sentences, not `1`  double-space  retext-sentence-spacing
 
 ⚠ 1 warning
 ```
@@ -82,6 +82,27 @@ Emit warnings when the spacing does not adhere to the preferred style.
 *   `0` (or `'newline'`) — Disallow spaces between sentences
 *   `1` (or `'space'`, default) — Allow only one space between sentences
 *   `2` — Allow only two spaces between sentences
+
+### Messages
+
+Each message is emitted as a [`VFileMessage`][message] on `file`, with the
+following fields:
+
+###### `message.source`
+
+Name of this plugin (`'retext-sentence-spacing'`).
+
+###### `message.ruleId`
+
+Preferred style (`'newline'`, `'space'`, or `'double-space'`).
+
+###### `message.actual`
+
+Current not ok spacing (`string`, such as `' '`).
+
+###### `message.expected`
+
+List of suggestions of spacing to use (`Array.<string>`, such as `['\n']`).
 
 ## Related
 
@@ -149,3 +170,5 @@ abide by its terms.
 [author]: https://wooorm.com
 
 [retext]: https://github.com/retextjs/retext
+
+[message]: https://github.com/vfile/vfile-message
