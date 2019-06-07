@@ -3,7 +3,6 @@
 var toString = require('nlcst-to-string')
 var visit = require('unist-util-visit')
 var convert = require('unist-util-is/convert')
-var plural = require('plur')
 
 module.exports = sentenceSpacing
 
@@ -82,16 +81,16 @@ function sentenceSpacing(options) {
           reason =
             'Expected a newline between sentences, not `' +
             size +
-            '` ' +
-            plural('space', size)
+            '` space' +
+            (size === 1 ? '' : 's')
         } else if (size === preferred) {
           continue
         } else {
           reason =
             'Expected `' +
             preferred +
-            '` ' +
-            plural('space', preferred) +
+            '` space' +
+            (preferred === 1 ? '' : 's') +
             ' between sentences, not `' +
             size +
             '`'
