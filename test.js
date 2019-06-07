@@ -17,6 +17,34 @@ test('sentenceSpacing(value[, size])', function(t) {
   var one = [null, 'space', 1]
   var two = [2]
 
+  retext()
+    .use(spacing, {preferred: 1})
+    .process(mixed, function(err, file) {
+      t.deepEqual(
+        [err].concat(file.messages),
+        [
+          null,
+          {
+            message: 'Expected `1` space between sentences, not `2`',
+            name: '3:14-3:16',
+            reason: 'Expected `1` space between sentences, not `2`',
+            line: 3,
+            column: 14,
+            location: {
+              start: {line: 3, column: 14, offset: 43},
+              end: {line: 3, column: 16, offset: 45}
+            },
+            source: 'retext-sentence-spacing',
+            ruleId: 'space',
+            fatal: false,
+            actual: '  ',
+            expected: [' ']
+          }
+        ],
+        'should emit messages'
+      )
+    })
+
   one.forEach(function(pref) {
     retext()
       .use(spacing, {preferred: pref})

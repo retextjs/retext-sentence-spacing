@@ -10,7 +10,9 @@ module.exports = sentenceSpacing
 var sentence = convert('SentenceNode')
 var whiteSpace = convert('WhiteSpaceNode')
 
-var id = 'retext-sentence-spacing:retext-sentence-spacing'
+var source = 'retext-sentence-spacing'
+var ids = ['newline', 'space', 'double-space']
+var expected = ['\n', ' ', '  ']
 
 function sentenceSpacing(options) {
   var preferred = (options || {}).preferred
@@ -44,7 +46,9 @@ function sentenceSpacing(options) {
       var children = node.children
       var length = children.length
       var index = 0
-      var value
+      var reason
+      var message
+      var actual
       var child
       var size
 
@@ -59,39 +63,44 @@ function sentenceSpacing(options) {
           continue
         }
 
-        value = toString(child)
+        actual = toString(child)
 
         // We only check for white-space that is *just* spaces: it’s OK to add
         // line feeds if `space` is expected.
-        if (!/^ +$/.test(value)) {
+        if (!/^ +$/.test(actual)) {
           continue
         }
 
-        size = value.length
+        size = actual.length
 
         // Size is never preferred if we want a line feed.
         if (preferred === 0) {
-          file.message(
+          reason =
             'Expected a newline between sentences, not `' +
-              size +
-              '` ' +
-              plural('space', size),
-            child,
-            id
-          )
-        } else if (size !== preferred) {
-          file.message(
+            size +
+            '` ' +
+            plural('space', size)
+        } else if (size === preferred) {
+          continue
+        } else {
+          reason =
             'Expected `' +
-              preferred +
-              '` ' +
-              plural('space', preferred) +
-              ' between sentences, not `' +
-              size +
-              '`',
-            child,
-            id
-          )
+            preferred +
+            '` ' +
+            plural('space', preferred) +
+            ' between sentences, not `' +
+            size +
+            '`'
         }
+
+        message = file.message(
+          reason,
+          child,
+          [source, ids[preferred]].join(':')
+        )
+
+        message.actual = actual
+        message.expected = [expected[preferred]]
       }
     }
   }
