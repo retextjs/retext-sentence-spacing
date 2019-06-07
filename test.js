@@ -15,7 +15,7 @@ var mixed = [
 test('sentenceSpacing(value[, size])', function(t) {
   var zero = [0, 'newline']
   var one = [null, 'space', 1]
-  var two = [2]
+  var two = [2, 'double-space']
 
   retext()
     .use(spacing, {preferred: 1})

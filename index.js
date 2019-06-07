@@ -25,6 +25,10 @@ function sentenceSpacing(options) {
     preferred = 0
   }
 
+  if (preferred === 'double-space') {
+    preferred = 2
+  }
+
   if (typeof preferred !== 'number') {
     throw new Error(
       "Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`"

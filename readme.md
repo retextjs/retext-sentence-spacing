@@ -81,7 +81,7 @@ Emit warnings when the spacing does not adhere to the preferred style.
 
 *   `0` (or `'newline'`) — Disallow spaces between sentences
 *   `1` (or `'space'`, default) — Allow only one space between sentences
-*   `2` — Allow only two spaces between sentences
+*   `2` (or `'double-space'`) — Allow only two spaces between sentences
 
 ### Messages
 
