@@ -129,9 +129,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/retextjs/retext-sentence-spacing.svg
+[build-badge]: https://github.com/retextjs/retext-sentence-spacing/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/retextjs/retext-sentence-spacing
+[build]: https://github.com/retextjs/retext-sentence-spacing/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/retextjs/retext-sentence-spacing.svg
 
