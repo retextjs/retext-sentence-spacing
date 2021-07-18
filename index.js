@@ -2,15 +2,15 @@ import {toString} from 'nlcst-to-string'
 import {visit} from 'unist-util-visit'
 import {convert} from 'unist-util-is'
 
-var sentence = convert('SentenceNode')
-var whiteSpace = convert('WhiteSpaceNode')
+const sentence = convert('SentenceNode')
+const whiteSpace = convert('WhiteSpaceNode')
 
-var source = 'retext-sentence-spacing'
-var ids = ['newline', 'space', 'double-space']
-var expected = ['\n', ' ', '  ']
+const source = 'retext-sentence-spacing'
+const ids = ['newline', 'space', 'double-space']
+const expected = ['\n', ' ', '  ']
 
 export default function retextSentenceSpacing(options) {
-  var preferred = (options || {}).preferred
+  let preferred = (options || {}).preferred
 
   if (preferred === null || preferred === undefined || preferred === 'space') {
     preferred = 1
@@ -25,7 +25,7 @@ export default function retextSentenceSpacing(options) {
   }
 
   if (typeof preferred !== 'number') {
-    throw new Error(
+    throw new TypeError(
       "Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`"
     )
   }
@@ -42,14 +42,14 @@ export default function retextSentenceSpacing(options) {
     visit(tree, 'ParagraphNode', visitor)
 
     function visitor(node) {
-      var children = node.children
-      var length = children.length
-      var index = 0
-      var reason
-      var message
-      var actual
-      var child
-      var size
+      const children = node.children
+      const length = children.length
+      let index = 0
+      let reason
+      let message
+      let actual
+      let child
+      let size
 
       while (++index < length) {
         child = children[index]
