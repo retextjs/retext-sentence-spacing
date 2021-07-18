@@ -6,18 +6,16 @@ const sentence = convert('SentenceNode')
 const whiteSpace = convert('WhiteSpaceNode')
 
 const source = 'retext-sentence-spacing'
-const ids = ['newline', 'space', 'double-space']
-const expected = ['\n', ' ', '  ']
 
-export default function retextSentenceSpacing(options) {
-  let preferred = (options || {}).preferred
-
-  if (preferred === null || preferred === undefined || preferred === 'space') {
-    preferred = 1
-  }
+export default function retextSentenceSpacing(options = {}) {
+  let preferred = options.preferred
 
   if (preferred === 'newline') {
     preferred = 0
+  }
+
+  if (preferred === null || preferred === undefined || preferred === 'space') {
+    preferred = 1
   }
 
   if (preferred === 'double-space') {
@@ -36,41 +34,31 @@ export default function retextSentenceSpacing(options) {
     )
   }
 
-  return transformer
+  return (tree, file) => {
+    visit(tree, 'ParagraphNode', (node) => {
+      let index = -1
 
-  function transformer(tree, file) {
-    visit(tree, 'ParagraphNode', visitor)
-
-    function visitor(node) {
-      const children = node.children
-      const length = children.length
-      let index = 0
-      let reason
-      let message
-      let actual
-      let child
-      let size
-
-      while (++index < length) {
-        child = children[index]
+      while (++index < node.children.length) {
+        const child = node.children[index]
 
         if (
-          !sentence(children[index - 1]) ||
+          !sentence(node.children[index - 1]) ||
           !whiteSpace(child) ||
-          !sentence(children[index + 1])
+          !sentence(node.children[index + 1])
         ) {
           continue
         }
 
-        actual = toString(child)
+        const actual = toString(child)
 
-        // We only check for white-space that is *just* spaces: it’s OK to add
+        // We only check for whitespace that is *just* spaces: it’s OK to add
         // line feeds if `space` is expected.
         if (!/^ +$/.test(actual)) {
           continue
         }
 
-        size = actual.length
+        const size = actual.length
+        let reason
 
         // Size is never preferred if we want a line feed.
         if (preferred === 0) {
@@ -92,15 +80,25 @@ export default function retextSentenceSpacing(options) {
             '`'
         }
 
-        message = file.message(
-          reason,
-          child,
-          [source, ids[preferred]].join(':')
+        Object.assign(
+          file.message(
+            reason,
+            child,
+            [
+              source,
+              preferred === 0
+                ? 'newline'
+                : preferred === 1
+                ? 'space'
+                : 'double-space'
+            ].join(':')
+          ),
+          {
+            actual,
+            expected: [preferred === 0 ? '\n' : preferred === 1 ? ' ' : '  ']
+          }
         )
-
-        message.actual = actual
-        message.expected = [expected[preferred]]
       }
-    }
+    })
   }
 }
