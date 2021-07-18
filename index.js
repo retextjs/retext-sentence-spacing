@@ -1,10 +1,6 @@
-'use strict'
-
-var toString = require('nlcst-to-string')
-var visit = require('unist-util-visit')
-var convert = require('unist-util-is/convert')
-
-module.exports = sentenceSpacing
+import toString from 'nlcst-to-string'
+import visit from 'unist-util-visit'
+import convert from 'unist-util-is/convert.js'
 
 var sentence = convert('SentenceNode')
 var whiteSpace = convert('WhiteSpaceNode')
@@ -13,7 +9,7 @@ var source = 'retext-sentence-spacing'
 var ids = ['newline', 'space', 'double-space']
 var expected = ['\n', ' ', '  ']
 
-function sentenceSpacing(options) {
+export default function retextSentenceSpacing(options) {
   var preferred = (options || {}).preferred
 
   if (preferred === null || preferred === undefined || preferred === 'space') {

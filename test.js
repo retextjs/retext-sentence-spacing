@@ -1,8 +1,6 @@
-'use strict'
-
-var test = require('tape')
-var retext = require('retext')
-var spacing = require('.')
+import test from 'tape'
+import retext from 'retext'
+import spacing from './index.js'
 
 var mixed = [
   'One sentence. Two sentences.',
