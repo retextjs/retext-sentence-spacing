@@ -12,6 +12,9 @@
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -31,15 +34,18 @@ One sentence.  Two sentences.
 …and our script, `example.js`, looks as follows:
 
 ```js
-var vfile = require('to-vfile')
-var report = require('vfile-reporter')
-var retext = require('retext')
-var spacing = require('retext-sentence-spacing')
+import {readSync} from 'to-vfile'
+import {reporter} from 'vfile-reporter'
+import {retext} from 'retext'
+import retextSentenceSpacing from 'retext-sentence-spacing'
+
+const file = readSync('example.txt')
 
 retext()
-  .use(spacing)
-  .process(vfile.readSync('example.txt'), function(err, file) {
-    console.error(report(err || file))
+  .use(retextSentenceSpacing)
+  .process(file)
+  .then((file) => {
+    console.error(reporter(file))
   })
 ```
 
@@ -72,7 +78,10 @@ example.txt
 
 ## API
 
-### `retext().use(sentenceSpacing[, options])`
+This package exports no identifiers.
+The default export is `retextSentenceSpacing`.
+
+### `unified().use(retextSentenceSpacing[, options])`
 
 Check spacing between sentences.
 Emit warnings when the spacing does not adhere to the preferred style.
