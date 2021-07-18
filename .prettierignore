@@ -1,5 +1,2 @@
 coverage/
-retext-sentence-spacing.js
-retext-sentence-spacing.min.js
-*.json
 *.md
