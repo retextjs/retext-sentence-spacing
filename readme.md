@@ -62,8 +62,8 @@ This plugin can be configured to prefer 2 spaces instead:
 
 ```diff
  retext()
--  .use(spacing)
-+  .use(spacing, {preferred: 2})
+-  .use(retextSentenceSpacing)
++  .use(retextSentenceSpacing, {preferred: 2})
    .process(vfile.readSync('example.txt'), function(err, file) {
 ```
 

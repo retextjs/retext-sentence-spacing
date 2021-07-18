@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('./index.js').Preferred} Preferred
+ */
+
 import test from 'tape'
 import {retext} from 'retext'
 import retextSentenceSpacing from './index.js'
@@ -49,6 +53,7 @@ test('retext-sentence-spacing', (t) => {
   zero(0)
   zero('newline')
 
+  /** @param {Preferred} pref */
   function one(pref) {
     retext()
       .use(retextSentenceSpacing, {preferred: pref})
@@ -62,6 +67,7 @@ test('retext-sentence-spacing', (t) => {
       }, t.ifErr)
   }
 
+  /** @param {Preferred} pref */
   function two(pref) {
     retext()
       .use(retextSentenceSpacing, {preferred: pref})
@@ -75,6 +81,7 @@ test('retext-sentence-spacing', (t) => {
       }, t.ifErr)
   }
 
+  /** @param {Preferred} pref */
   function zero(pref) {
     retext()
       .use(retextSentenceSpacing, {preferred: pref})
@@ -115,6 +122,7 @@ test('retext-sentence-spacing', (t) => {
 
   t.throws(
     () => {
+      // @ts-expect-error: runtime.
       retext().use(retextSentenceSpacing, {preferred: -1}).freeze()
     },
     /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/,
@@ -123,6 +131,7 @@ test('retext-sentence-spacing', (t) => {
 
   t.throws(
     () => {
+      // @ts-expect-error: runtime.
       retext().use(retextSentenceSpacing, {preferred: 3}).freeze()
     },
     /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/,
@@ -131,6 +140,7 @@ test('retext-sentence-spacing', (t) => {
 
   t.throws(
     () => {
+      // @ts-expect-error: runtime.
       retext().use(retextSentenceSpacing, {preferred: 'foo'}).freeze()
     },
     /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`/,

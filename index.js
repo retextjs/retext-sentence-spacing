@@ -1,3 +1,13 @@
+/**
+ * @typedef {0|1|2|'newline'|'space'|'double-space'|null|undefined} Preferred
+ *
+ * @typedef Options
+ *   Configuration.
+ * @property {Preferred} [preferred=1]
+ *   Spaces between sentences.
+ *   Use `0` for line endings.
+ */
+
 import {toString} from 'nlcst-to-string'
 import {visit} from 'unist-util-visit'
 import {convert} from 'unist-util-is'
@@ -7,7 +17,17 @@ const whiteSpace = convert('WhiteSpaceNode')
 
 const source = 'retext-sentence-spacing'
 
+/**
+ * Plugin to check spacing between sentences.
+ * Emit warnings when the spacing does not adhere to the preferred style.
+ *
+ * @type {import('unified').Plugin<[Options?]>}
+ */
 export default function retextSentenceSpacing(options = {}) {
+  /**
+   * @typedef {import('unist').Parent} Parent
+   */
+
   let preferred = options.preferred
 
   if (preferred === 'newline') {
@@ -35,7 +55,7 @@ export default function retextSentenceSpacing(options = {}) {
   }
 
   return (tree, file) => {
-    visit(tree, 'ParagraphNode', (node) => {
+    visit(tree, 'ParagraphNode', (/** @type {Parent} */ node) => {
       let index = -1
 
       while (++index < node.children.length) {
@@ -58,6 +78,7 @@ export default function retextSentenceSpacing(options = {}) {
         }
 
         const size = actual.length
+        /** @type {string} */
         let reason
 
         // Size is never preferred if we want a line feed.
