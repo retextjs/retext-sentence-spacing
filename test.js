@@ -1,6 +1,6 @@
 import test from 'tape'
-import retext from 'retext'
-import spacing from './index.js'
+import {retext} from 'retext'
+import retextSentenceSpacing from './index.js'
 
 var mixed = [
   'One sentence. Two sentences.',
@@ -10,30 +10,28 @@ var mixed = [
   'One sentence.\nTwo sentences.'
 ].join('\n')
 
-test('sentenceSpacing(value[, size])', function (t) {
-  var zero = [0, 'newline']
-  var one = [null, 'space', 1]
-  var two = [2, 'double-space']
+test('retext-sentence-spacing', function (t) {
+  t.plan(13)
 
   retext()
-    .use(spacing, {preferred: 1})
-    .process(mixed, function (error, file) {
+    .use(retextSentenceSpacing, {preferred: 1})
+    .process(mixed)
+    .then(function (file) {
       t.deepEqual(
-        JSON.parse(JSON.stringify([error].concat(file.messages))),
+        JSON.parse(JSON.stringify(file.messages)),
         [
-          null,
           {
-            message: 'Expected `1` space between sentences, not `2`',
             name: '3:14-3:16',
+            message: 'Expected `1` space between sentences, not `2`',
             reason: 'Expected `1` space between sentences, not `2`',
             line: 3,
             column: 14,
-            location: {
+            source: 'retext-sentence-spacing',
+            ruleId: 'space',
+            position: {
               start: {line: 3, column: 14, offset: 43},
               end: {line: 3, column: 16, offset: 45}
             },
-            source: 'retext-sentence-spacing',
-            ruleId: 'space',
             fatal: false,
             actual: '  ',
             expected: [' ']
@@ -41,11 +39,19 @@ test('sentenceSpacing(value[, size])', function (t) {
         ],
         'should emit messages'
       )
-    })
+    }, t.ifErr)
 
-  one.forEach(function (pref) {
+  one(null)
+  one('space')
+  one(1)
+  two(2)
+  two('double-space')
+  zero(0)
+  zero('newline')
+
+  function one(pref) {
     retext()
-      .use(spacing, {preferred: pref})
+      .use(retextSentenceSpacing, {preferred: pref})
       .process(mixed, function (error, file) {
         t.deepEqual(
           [error].concat(file.messages.map(String)),
@@ -53,11 +59,11 @@ test('sentenceSpacing(value[, size])', function (t) {
           'should catch double spaces when preferred == ' + pref
         )
       })
-  })
+  }
 
-  two.forEach(function (pref) {
+  function two(pref) {
     retext()
-      .use(spacing, {preferred: pref})
+      .use(retextSentenceSpacing, {preferred: pref})
       .process(mixed, function (error, file) {
         t.deepEqual(
           [error].concat(file.messages.map(String)),
@@ -65,47 +71,49 @@ test('sentenceSpacing(value[, size])', function (t) {
           'should catch single spaces when preferred == ' + pref
         )
       })
-  })
+  }
 
-  zero.forEach(function (pref) {
+  function zero(pref) {
     retext()
-      .use(spacing, {preferred: pref})
-      .process(mixed, function (error, file) {
+      .use(retextSentenceSpacing, {preferred: pref})
+      .process(mixed)
+      .then((file) => {
         t.deepEqual(
-          [error].concat(file.messages.map(String)),
+          file.messages.map(String),
           [
-            null,
             '1:14-1:15: Expected a newline between sentences, not `1` space',
             '3:14-3:16: Expected a newline between sentences, not `2` spaces'
           ],
           'should catch spaces when preferred == ' + pref
         )
-      })
-  })
+      }, t.ifErr)
+  }
 
   retext()
-    .use(spacing)
-    .process('One sentence.   Three sentences.', function (error, file) {
+    .use(retextSentenceSpacing)
+    .process('One sentence.   Three sentences.')
+    .then((file) => {
       t.deepEqual(
-        [error].concat(file.messages.map(String)),
-        [null, '1:14-1:17: Expected `1` space between sentences, not `3`'],
+        file.messages.map(String),
+        ['1:14-1:17: Expected `1` space between sentences, not `3`'],
         'should catch more than two spaces'
       )
-    })
+    }, t.ifErr)
 
   retext()
-    .use(spacing)
-    .process('One sentence.\tFour sentences.', function (error, file) {
+    .use(retextSentenceSpacing)
+    .process('One sentence.\tFour sentences.')
+    .then((file) => {
       t.deepEqual(
-        [error].concat(file.messages.map(String)),
-        [null],
+        file.messages.map(String),
+        [],
         'should not emit messages for non-space white-space'
       )
-    })
+    }, t.ifErr)
 
   t.throws(
     function () {
-      retext().use(spacing, {preferred: -1}).freeze()
+      retext().use(retextSentenceSpacing, {preferred: -1}).freeze()
     },
     /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/,
     'should throw for preferred lower than 1'
@@ -113,7 +121,7 @@ test('sentenceSpacing(value[, size])', function (t) {
 
   t.throws(
     function () {
-      retext().use(spacing, {preferred: 3}).freeze()
+      retext().use(retextSentenceSpacing, {preferred: 3}).freeze()
     },
     /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/,
     'should throw for preferred higher than 2'
@@ -121,11 +129,9 @@ test('sentenceSpacing(value[, size])', function (t) {
 
   t.throws(
     function () {
-      retext().use(spacing, {preferred: 'foo'}).freeze()
+      retext().use(retextSentenceSpacing, {preferred: 'foo'}).freeze()
     },
     /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`/,
     'should throw for non-numbers'
   )
-
-  t.end()
 })
