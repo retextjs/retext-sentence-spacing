@@ -18,6 +18,7 @@ const sentence = convert('SentenceNode')
 const whiteSpace = convert('WhiteSpaceNode')
 
 const source = 'retext-sentence-spacing'
+const url = 'https://github.com/retextjs/retext-sentence-spacing#readme'
 
 /**
  * Plugin to check spacing between sentences.
@@ -114,7 +115,8 @@ export default function retextSentenceSpacing(options = {}) {
           ),
           {
             actual,
-            expected: [preferred === 0 ? '\n' : preferred === 1 ? ' ' : '  ']
+            expected: [preferred === 0 ? '\n' : preferred === 1 ? ' ' : '  '],
+            url
           }
         )
       }
