@@ -38,7 +38,8 @@ test('retext-sentence-spacing', (t) => {
             },
             fatal: false,
             actual: '  ',
-            expected: [' ']
+            expected: [' '],
+            url: 'https://github.com/retextjs/retext-sentence-spacing#readme'
           }
         ],
         'should emit messages'
