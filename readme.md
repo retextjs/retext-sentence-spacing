@@ -111,7 +111,7 @@ Current not ok spacing (`string`, such as `' '`).
 
 ###### `message.expected`
 
-List of suggestions of spacing to use (`Array.<string>`, such as `['\n']`).
+List of suggestions of spacing to use (`Array<string>`, such as `['\n']`).
 
 ## Related
 

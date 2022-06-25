@@ -61,7 +61,7 @@ test('retext-sentence-spacing', (t) => {
       .process(mixed)
       .then((file) => {
         t.deepEqual(
-          file.messages.map((d) => String(d)),
+          file.messages.map(String),
           ['3:14-3:16: Expected `1` space between sentences, not `2`'],
           'should catch double spaces when preferred == ' + pref
         )
@@ -75,7 +75,7 @@ test('retext-sentence-spacing', (t) => {
       .process(mixed)
       .then((file) => {
         t.deepEqual(
-          file.messages.map((d) => String(d)),
+          file.messages.map(String),
           ['1:14-1:15: Expected `2` spaces between sentences, not `1`'],
           'should catch single spaces when preferred == ' + pref
         )
@@ -89,7 +89,7 @@ test('retext-sentence-spacing', (t) => {
       .process(mixed)
       .then((file) => {
         t.deepEqual(
-          file.messages.map((d) => String(d)),
+          file.messages.map(String),
           [
             '1:14-1:15: Expected a newline between sentences, not `1` space',
             '3:14-3:16: Expected a newline between sentences, not `2` spaces'
@@ -104,7 +104,7 @@ test('retext-sentence-spacing', (t) => {
     .process('One sentence.   Three sentences.')
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         ['1:14-1:17: Expected `1` space between sentences, not `3`'],
         'should catch more than two spaces'
       )
@@ -115,7 +115,7 @@ test('retext-sentence-spacing', (t) => {
     .process('One sentence.\tFour sentences.')
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         [],
         'should not emit messages for non-space white-space'
       )
