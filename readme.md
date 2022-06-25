@@ -79,7 +79,7 @@ import retextSentenceSpacing from 'retext-sentence-spacing'
 
 const file = await retext()
   .use(retextSentenceSpacing)
-  .process(read('example.txt'))
+  .process(await read('example.txt'))
 
 console.error(reporter(file))
 ```
@@ -97,10 +97,10 @@ The default is to check for 1 space, which can be changed.
 For example, to 2 spaces:
 
 ```diff
- retext()
+ const file = await retext()
 -  .use(retextSentenceSpacing)
 +  .use(retextSentenceSpacing, {preferred: 2})
-   .process(vfile.readSync('example.txt'), function(err, file) {
+   .process(await read('example.txt'))
 ```
 
 …now running `node example.js` once again yields:
