@@ -8,22 +8,60 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**retext**][retext] plugin to check spacing between sentences.
+**[retext][]** plugin to check spacing between sentences.
+
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`unified().use(retextSentenceSpacing[, options])`](#unifieduseretextsentencespacing-options)
+*   [Messages](#messages)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package is a [unified][] ([retext][]) plugin to check spacing between
+sentences.
+For example, it can check for one or two spaces sentences.
+
+## When should I use this?
+
+You can opt-into this plugin when you’re dealing with content that might contain
+mistakes, and have authors that can fix that content.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
 
 ```sh
 npm install retext-sentence-spacing
 ```
 
+In Deno with [`esm.sh`][esmsh]:
+
+```js
+import retextSentenceSpacing from 'https://esm.sh/retext-sentence-spacing@5'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import retextSentenceSpacing from 'https://esm.sh/retext-sentence-spacing@5?bundle'
+</script>
+```
+
 ## Use
 
-Say we have the following file, `example.txt`:
+Say our document `example.txt` contains:
 
 ```txt
 One sentence. Two sentences.
@@ -31,25 +69,22 @@ One sentence. Two sentences.
 One sentence.  Two sentences.
 ```
 
-…and our script, `example.js`, looks as follows:
+…and our module `example.js` looks as follows:
 
 ```js
-import {readSync} from 'to-vfile'
+import {read} from 'to-vfile'
 import {reporter} from 'vfile-reporter'
 import {retext} from 'retext'
 import retextSentenceSpacing from 'retext-sentence-spacing'
 
-const file = readSync('example.txt')
-
-retext()
+const file = await retext()
   .use(retextSentenceSpacing)
-  .process(file)
-  .then((file) => {
-    console.error(reporter(file))
-  })
+  .process(read('example.txt'))
+
+console.error(reporter(file))
 ```
 
-Yields:
+…now running `node example.js` yields:
 
 ```txt
 example.txt
@@ -58,7 +93,8 @@ example.txt
 ⚠ 1 warning
 ```
 
-This plugin can be configured to prefer 2 spaces instead:
+The default is to check for 1 space, which can be changed.
+For example, to 2 spaces:
 
 ```diff
  retext()
@@ -67,7 +103,7 @@ This plugin can be configured to prefer 2 spaces instead:
    .process(vfile.readSync('example.txt'), function(err, file) {
 ```
 
-Yields:
+…now running `node example.js` once again yields:
 
 ```txt
 example.txt
@@ -88,14 +124,14 @@ Emit warnings when the spacing does not adhere to the preferred style.
 
 ###### `options.preferred`
 
-*   `0` (or `'newline'`) — Disallow spaces between sentences
-*   `1` (or `'space'`, default) — Allow only one space between sentences
-*   `2` (or `'double-space'`) — Allow only two spaces between sentences
+*   `0` (or `'newline'`) — disallow spaces between sentences
+*   `1` (or `'space'`, default) — allow only one space between sentences
+*   `2` (or `'double-space'`) — allow only two spaces between sentences
 
-### Messages
+## Messages
 
-Each message is emitted as a [`VFileMessage`][message] on `file`, with the
-following fields:
+Each message is emitted as a [`VFileMessage`][vfile-message] on `file`, with
+the following fields:
 
 ###### `message.source`
 
@@ -113,14 +149,26 @@ Current not ok spacing (`string`, such as `' '`).
 
 List of suggestions of spacing to use (`Array<string>`, such as `['\n']`).
 
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports the additional type `Options`.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
 ## Related
 
 *   [`retext-contractions`](https://github.com/retextjs/retext-contractions)
-    — Check apostrophe use in contractions
+    — check apostrophe use in contractions
 *   [`retext-diacritics`](https://github.com/retextjs/retext-diacritics)
-    — Check for proper use of diacritics
+    — check for proper use of diacritics
 *   [`retext-quotes`](https://github.com/retextjs/retext-quotes)
-    — Check quote and apostrophe usage
+    — check quote and apostrophe usage
 
 ## Contribute
 
@@ -166,18 +214,26 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[typescript]: https://www.typescriptlang.org
+
 [health]: https://github.com/retextjs/.github
 
-[contributing]: https://github.com/retextjs/.github/blob/HEAD/contributing.md
+[contributing]: https://github.com/retextjs/.github/blob/main/contributing.md
 
-[support]: https://github.com/retextjs/.github/blob/HEAD/support.md
+[support]: https://github.com/retextjs/.github/blob/main/support.md
 
-[coc]: https://github.com/retextjs/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/retextjs/.github/blob/main/code-of-conduct.md
 
 [license]: license
 
 [author]: https://wooorm.com
 
+[unified]: https://github.com/unifiedjs/unified
+
 [retext]: https://github.com/retextjs/retext
 
-[message]: https://github.com/vfile/vfile-message
+[vfile-message]: https://github.com/vfile/vfile-message
