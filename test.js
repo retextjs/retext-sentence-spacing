@@ -29,14 +29,14 @@ test('retextSentenceSpacing', async function (t) {
         ancestors: [],
         column: 14,
         fatal: false,
-        message: 'Expected `1` space between sentences, not `2`',
+        message: 'Unexpected 2 spaces between sentence, expected 1 space',
         line: 3,
         name: '3:14-3:16',
         place: {
           start: {line: 3, column: 14, offset: 43},
           end: {line: 3, column: 16, offset: 45}
         },
-        reason: 'Expected `1` space between sentences, not `2`',
+        reason: 'Unexpected 2 spaces between sentence, expected 1 space',
         ruleId: 'space',
         source: 'retext-sentence-spacing',
         actual: '  ',
@@ -60,7 +60,7 @@ test('retextSentenceSpacing', async function (t) {
             .process(mixed)
 
           assert.deepEqual(file.messages.map(String), [
-            '3:14-3:16: Expected `1` space between sentences, not `2`'
+            '3:14-3:16: Unexpected 2 spaces between sentence, expected 1 space'
           ])
         }
       )
@@ -77,7 +77,7 @@ test('retextSentenceSpacing', async function (t) {
             .process(mixed)
 
           assert.deepEqual(file.messages.map(String), [
-            '1:14-1:15: Expected `2` spaces between sentences, not `1`'
+            '1:14-1:15: Unexpected 1 space between sentence, expected 2 spaces'
           ])
         }
       )
@@ -94,8 +94,8 @@ test('retextSentenceSpacing', async function (t) {
             .process(mixed)
 
           assert.deepEqual(file.messages.map(String), [
-            '1:14-1:15: Expected a newline between sentences, not `1` space',
-            '3:14-3:16: Expected a newline between sentences, not `2` spaces'
+            '1:14-1:15: Unexpected spaces between sentence, expected a line ending',
+            '3:14-3:16: Unexpected spaces between sentence, expected a line ending'
           ])
         }
       )
@@ -108,7 +108,7 @@ test('retextSentenceSpacing', async function (t) {
       .process('One sentence.   Three sentences.')
 
     assert.deepEqual(file.messages.map(String), [
-      '1:14-1:17: Expected `1` space between sentences, not `3`'
+      '1:14-1:17: Unexpected 3 spaces between sentence, expected 1 space'
     ])
   })
 
