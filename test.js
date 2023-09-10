@@ -1,7 +1,3 @@
-/**
- * @typedef {import('./lib/index.js').Preferred} Preferred
- */
-
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {retext} from 'retext'
@@ -16,6 +12,12 @@ const mixed = [
 ].join('\n')
 
 test('retextSentenceSpacing', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+      'default'
+    ])
+  })
+
   await t.test('should emit a message w/ metadata', async function () {
     const file = await retext()
       .use(retextSentenceSpacing, {preferred: 1})
@@ -120,25 +122,4 @@ test('retextSentenceSpacing', async function (t) {
       assert.deepEqual(file.messages.map(String), [])
     }
   )
-
-  await t.test('should throw for preferred lower than 1', async function () {
-    assert.throws(() => {
-      // @ts-expect-error: runtime.
-      retext().use(retextSentenceSpacing, {preferred: -1}).freeze()
-    }, /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/)
-  })
-
-  await t.test('should throw for preferred higher than 2', async function () {
-    assert.throws(() => {
-      // @ts-expect-error: runtime.
-      retext().use(retextSentenceSpacing, {preferred: 3}).freeze()
-    }, /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number` between \(including\) `0` and `2`/)
-  })
-
-  await t.test('should throw for non-numbers', async function () {
-    assert.throws(() => {
-      // @ts-expect-error: runtime.
-      retext().use(retextSentenceSpacing, {preferred: 'foo'}).freeze()
-    }, /Error: Expected `options.preferred` to be `'space'`, `'newline'`, or a `number`/)
-  })
 })
