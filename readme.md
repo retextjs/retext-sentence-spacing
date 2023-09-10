@@ -18,6 +18,7 @@
 *   [Use](#use)
 *   [API](#api)
     *   [`unified().use(retextSentenceSpacing[, options])`](#unifieduseretextsentencespacing-options)
+    *   [`Options`](#options)
 *   [Messages](#messages)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -39,7 +40,7 @@ mistakes, and have authors that can fix that content.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install retext-sentence-spacing
@@ -69,13 +70,13 @@ One sentence. Two sentences.
 One sentence.  Two sentences.
 ```
 
-…and our module `example.js` looks as follows:
+…and our module `example.js` contains:
 
 ```js
-import {read} from 'to-vfile'
-import {reporter} from 'vfile-reporter'
 import {retext} from 'retext'
 import retextSentenceSpacing from 'retext-sentence-spacing'
+import {read} from 'to-vfile'
+import {reporter} from 'vfile-reporter'
 
 const file = await retext()
   .use(retextSentenceSpacing)
@@ -84,11 +85,11 @@ const file = await retext()
 console.error(reporter(file))
 ```
 
-…now running `node example.js` yields:
+…then running `node example.js` yields:
 
 ```txt
 example.txt
-  3:14-3:16  warning  Expected `1` space between sentences, not `2`  space  retext-sentence-spacing
+3:14-3:16 warning Unexpected 2 spaces between sentence, expected 1 space space retext-sentence-spacing
 
 ⚠ 1 warning
 ```
@@ -99,7 +100,7 @@ For example, to 2 spaces:
 ```diff
  const file = await retext()
 -  .use(retextSentenceSpacing)
-+  .use(retextSentenceSpacing, {preferred: 2})
++  .use(retextSentenceSpacing, {preferred: 'double-space'})
    .process(await read('example.txt'))
 ```
 
@@ -107,7 +108,7 @@ For example, to 2 spaces:
 
 ```txt
 example.txt
-  1:14-1:15  warning  Expected `2` spaces between sentences, not `1`  double-space  retext-sentence-spacing
+1:14-1:15 warning Unexpected 1 space between sentence, expected 2 spaces double-space retext-sentence-spacing
 
 ⚠ 1 warning
 ```
@@ -115,51 +116,52 @@ example.txt
 ## API
 
 This package exports no identifiers.
-The default export is `retextSentenceSpacing`.
+The default export is [`retextSentenceSpacing`][api-retext-sentence-spacing].
 
 ### `unified().use(retextSentenceSpacing[, options])`
 
 Check spacing between sentences.
-Emit warnings when the spacing does not adhere to the preferred style.
 
-###### `options.preferred`
+###### Parameters
 
-*   `0` (or `'newline'`) — disallow spaces between sentences
-*   `1` (or `'space'`, default) — allow only one space between sentences
-*   `2` (or `'double-space'`) — allow only two spaces between sentences
+*   `options` ([`Options`][api-options], optional)
+    — configuration
+
+###### Returns
+
+Transform ([`Transformer`][unified-transformer]).
+
+### `Options`
+
+Configuration (TypeScript type).
+
+###### Fields
+
+*   `preferred` (`'double-space'`, `'newline'`, `'space'`, `0`, `1`, `2`,
+    default: `'space'`)
+    — spaces to use
 
 ## Messages
 
 Each message is emitted as a [`VFileMessage`][vfile-message] on `file`, with
-the following fields:
-
-###### `message.source`
-
-Name of this plugin (`'retext-sentence-spacing'`).
-
-###### `message.ruleId`
-
-Preferred style (`'newline'`, `'space'`, or `'double-space'`).
-
-###### `message.actual`
-
-Current not ok spacing (`string`, such as `' '`).
-
-###### `message.expected`
-
-List of suggestions of spacing to use (`Array<string>`, such as `['\n']`).
+`source` set to `'retext-sentence-spacing'`, `ruleId` to the preferred style
+(`'newline'`, `'space'`, or `'double-space'`), `actual` to the unexpected
+value, and `expected` to the expected value.
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional type `Options`.
+It exports the additional type [`Options`][api-options].
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line,
+`retext-sentence-spacing@^5`, compatible with Node.js 12.
 
 ## Related
 
@@ -198,9 +200,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/retext-sentence-spacing
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/retext-sentence-spacing.svg
+[size-badge]: https://img.shields.io/bundlejs/size/retext-sentence-spacing
 
-[size]: https://bundlephobia.com/result?p=retext-sentence-spacing
+[size]: https://bundlejs.com/?q=retext-sentence-spacing
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -232,8 +234,14 @@ abide by its terms.
 
 [author]: https://wooorm.com
 
-[unified]: https://github.com/unifiedjs/unified
-
 [retext]: https://github.com/retextjs/retext
 
+[unified]: https://github.com/unifiedjs/unified
+
+[unified-transformer]: https://github.com/unifiedjs/unified#transformer
+
 [vfile-message]: https://github.com/vfile/vfile-message
+
+[api-options]: #options
+
+[api-retext-sentence-spacing]: #unifieduseretextsentencespacing-options
