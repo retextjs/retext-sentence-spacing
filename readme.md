@@ -49,14 +49,14 @@ npm install retext-sentence-spacing
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import retextSentenceSpacing from 'https://esm.sh/retext-sentence-spacing@5'
+import retextSentenceSpacing from 'https://esm.sh/retext-sentence-spacing@6'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import retextSentenceSpacing from 'https://esm.sh/retext-sentence-spacing@5?bundle'
+  import retextSentenceSpacing from 'https://esm.sh/retext-sentence-spacing@6?bundle'
 </script>
 ```
 
