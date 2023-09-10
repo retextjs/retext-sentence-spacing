@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {retext} from 'retext'
-import retextSentenceSpacing from './index.js'
+import retextSentenceSpacing from 'retext-sentence-spacing'
 
 const mixed = [
   'One sentence. Two sentences.',
@@ -13,9 +13,10 @@ const mixed = [
 
 test('retextSentenceSpacing', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
-      'default'
-    ])
+    assert.deepEqual(
+      Object.keys(await import('retext-sentence-spacing')).sort(),
+      ['default']
+    )
   })
 
   await t.test('should emit a message w/ metadata', async function () {
