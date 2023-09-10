@@ -22,26 +22,25 @@ test('retext-sentence-spacing', (t) => {
     .process(mixed)
     .then((file) => {
       t.deepEqual(
-        JSON.parse(JSON.stringify(file.messages)),
-        [
-          {
-            name: '3:14-3:16',
-            message: 'Expected `1` space between sentences, not `2`',
-            reason: 'Expected `1` space between sentences, not `2`',
-            line: 3,
-            column: 14,
-            source: 'retext-sentence-spacing',
-            ruleId: 'space',
-            position: {
-              start: {line: 3, column: 14, offset: 43},
-              end: {line: 3, column: 16, offset: 45}
-            },
-            fatal: false,
-            actual: '  ',
-            expected: [' '],
-            url: 'https://github.com/retextjs/retext-sentence-spacing#readme'
-          }
-        ],
+        JSON.parse(JSON.stringify({...file.messages[0], ancestors: []})),
+        {
+          ancestors: [],
+          column: 14,
+          fatal: false,
+          message: 'Expected `1` space between sentences, not `2`',
+          line: 3,
+          name: '3:14-3:16',
+          place: {
+            start: {line: 3, column: 14, offset: 43},
+            end: {line: 3, column: 16, offset: 45}
+          },
+          reason: 'Expected `1` space between sentences, not `2`',
+          ruleId: 'space',
+          source: 'retext-sentence-spacing',
+          actual: '  ',
+          expected: [' '],
+          url: 'https://github.com/retextjs/retext-sentence-spacing#readme'
+        },
         'should emit messages'
       )
     }, t.ifErr)
