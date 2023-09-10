@@ -1,5 +1,5 @@
 /**
- * @typedef {import('./index.js').Preferred} Preferred
+ * @typedef {import('./lib/index.js').Preferred} Preferred
  */
 
 import test from 'tape'
